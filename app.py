@@ -5,15 +5,11 @@ import copy
 import sys
 
 
-
 players = copy.deepcopy(constants.PLAYERS)
 teams = copy.deepcopy(constants.TEAMS)
 Panthers = []
 Bandits = []
 Warriors = []
-p_total_height = 0
-b_total_height = 0
-w_total_height = 0
 
 
 def set_exp():
@@ -61,38 +57,23 @@ def balance_teams():
                     Warriors.append(player)
 
 
-def average_height():
-    p_total_height = 0
-    b_total_height = 0
-    w_total_height = 0
-    for player in Panthers:
-        p_total_height += player["height"]
-    p_total_height /= len(players)
-
-    for player in Bandits:
-        b_total_height += player["height"]
-    b_total_height /= len(players)
-
-    for player in Warriors:
-        w_total_height += player["height"]
-    w_total_height /= len(players)
-
-    return p_total_height
-    return b_total_height
-    return w_total_height
-
-
-set_exp()
-set_height()
-player_guardians()
-balance_teams()
-average_height()
+def average_height(team):
+    a_height = 0
+    for player in team:
+        a_height += player['height']
+    a_height /= len(team)
+    return a_height
 
 
 if __name__ == "__main__":
 
-    print("hello world")
-    print("BASKETBALL TEAM STATS TOOL")
+
+    set_exp()
+    set_height()
+    player_guardians()
+    balance_teams()
+
+
     print("----Menu----")
     print("Here are your choices:" '\n' "A) Display Team Stats" '\n' "B) Quit")
     test = input("Enter an option:  ")
@@ -107,9 +88,30 @@ if __name__ == "__main__":
             test2 = test2.lower()
             if test2 == 'a':
                 print("Team: Panthers Stats"'\n' "--------------"'\n'"Total players: {}".format(len(Panthers)))
-                print("Players on Team: ")
+                count_exp = 0
+                count_inexp = 0
                 for player in Panthers:
-                    print(player['name'])
+                    if player['experience'] == True:
+                        count_exp += 1
+                    else:
+                        count_inexp += 1
+                print('Total experienced: {}'.format(count_exp))
+                print('Total inexperienced: {}'.format(count_inexp))
+                a_h = average_height(Panthers)
+                print('Average height: {}'.format(a_h))
+                print("Players on Team: ")
+                names_together =  []
+                for player in Panthers:
+                    names = player['name']
+                    names_together.append(str(names))
+                print(", ".join(names_together))
+                print('Guardians: ')
+                guardians_together =  []
+                for player in Panthers:
+                    names = ', '.join(player['guardians'])
+                    guardians_together.append(names)
+                print(', '.join(guardians_together))
+                print('\n')
                 test3 = input("Would you like to view another team?   ")
                 if test3 == 'no':
                     sys.exit("Thank you for using BASKETBALL TEAM STATS TOOL.")
@@ -122,9 +124,30 @@ if __name__ == "__main__":
 
             if test2 == 'b':
                 print("Team: Bandits Stats"'\n' "--------------"'\n'"Total players: {}".format(len(Bandits)))
-                print("Players on Team: ")
+                count_exp = 0
+                count_inexp = 0
                 for player in Bandits:
-                    print(player['name'])
+                    if player['experience'] == True:
+                        count_exp += 1
+                    else:
+                        count_inexp += 1
+                print('Total experienced: {}'.format(count_exp))
+                print('Total inexperienced: {}'.format(count_inexp))
+                a_h = average_height(Bandits)
+                print('Average height: {}'.format(a_h))
+                print("Players on Team: ")
+                names_together =  []
+                for player in Bandits:
+                    names = player['name']
+                    names_together.append(str(names))
+                print("  " ", ".join(names_together))
+                print('Guardians: ')
+                names_together =  []
+                for player in Bandits:
+                    names = player['name']
+                    names_together.append(str(names))
+                print(", ".join(names_together))
+                print('\n')
                 test3 = input("Would you like to view another team?   ")
                 if test3 == 'no':
                     sys.exit("Thank you for using BASKETBALL TEAM STATS TOOL.")
@@ -137,9 +160,30 @@ if __name__ == "__main__":
 
             if test2 == 'c':
                 print("Team: Warriors Stats"'\n' "--------------"'\n'"Total players: {}".format(len(Warriors)))
-                print("Players on Team: ")
+                count_exp = 0
+                count_inexp = 0
                 for player in Warriors:
-                    print(player['name'])
+                    if player['experience'] == True:
+                        count_exp += 1
+                    else:
+                        count_inexp += 1
+                print('Total experienced: {}'.format(count_exp))
+                print('Total inexperienced: {}'.format(count_inexp))
+                a_h = average_height(Warriors)
+                print('Average height: {}'.format(a_h))
+                print("Players on Team: ")
+                names_together =  []
+                for player in Warriors:
+                    names = player['name']
+                    names_together.append(str(names))
+                print("  " ", ".join(names_together))
+                print('Guardians: ')
+                names_together =  []
+                for player in Warriors:
+                    names = player['name']
+                    names_together.append(str(names))
+                print(", ".join(names_together))
+                print('\n')
                 test3 = input("Would you like to view another team?   ")
                 if test3 == 'no':
                     sys.exit("Thank you for using BASKETBALL TEAM STATS TOOL.")
